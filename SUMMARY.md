@@ -13,4 +13,5 @@
 ## g2
 
 * [new group](g2/new-group.md)
+* [new g 2](g2/new-g-2.md)
 
