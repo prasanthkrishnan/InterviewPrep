@@ -2,7 +2,7 @@
 
 ## Binary Search
 
-Finding an element  in unsorted array is minimum `O(n)`. If the array is sorted one can do better via binary search. It takes `O(logn)` times to find the element. Conceptually, a binary search works as follows:
+Finding an element in unsorted array is minimum `O(n)`. If the array is sorted one can do better via binary search. It takes `O(logn)` times to find the element. Conceptually, a binary search works as follows:
 
 1. Pick a pivot
 2. If the searching element is less than the pivot, then look at the sub array to the left of the pivot. 
@@ -10,13 +10,11 @@ Finding an element  in unsorted array is minimum `O(n)`. If the array is sorted 
 
 Three different templates for binary search. \(From leetcode\).
 
-{% tabs %}
-{% tab title="Template 1" %}
 ```java
 int binarySearch(int[] nums, int target){
   if(nums == null || nums.length == 0)
     return -1;
-    
+
   int left = 0, right = nums.length - 1;
   while(left <= right){
     // Prevent (left + right) overflow
@@ -33,9 +31,7 @@ int binarySearch(int[] nums, int target){
 * Most basic and elementary form of Binary Search
 * Search Condition can be determined without comparing to the element's neighbors \(or use specific elements around it.
 * No post-processing required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found.
-{% endtab %}
 
-{% tab title="Template 2" %}
 ```java
 int binarySearch(int[] nums, int target){
   if(nums == null || nums.length == 0)
@@ -61,9 +57,7 @@ int binarySearch(int[] nums, int target){
 * Use element’s right neighbor to determine if condition is met and decide whether to go left or right
 * Guarantees Search Space is at least 2 in size at each step
 * Post-processing required. Loop/Recursion ends when you have 1 element left. Need to assess if the remaining element meets the condition.
-{% endtab %}
 
-{% tab title="Template 3" %}
 ```java
 int binarySearch(int[] nums, int target) {
     if (nums == null || nums.length == 0)
@@ -94,8 +88,6 @@ int binarySearch(int[] nums, int target) {
 * Use element’s neighbors to determine if condition is met and decide whether to go left or right
 * Guarantees Search Space is at least 3 in size at each step
 * Post-processing required. Loop/Recursion ends when you have 2 elements left. Need to assess if the remaining elements meet the condition.
-{% endtab %}
-{% endtabs %}
 
 ## Sorting
 
@@ -112,10 +104,10 @@ int binarySearch(int[] nums, int target) {
 {% tab title="Insertion Sort" %}
 ```java
 Sort(a[n]) {
-	for (j <- 1 to n) {
-		Insert a[j] into the right position in a already sorted
-		 sub array a[0..j-1] by pairwise swapping.
-	}
+    for (j <- 1 to n) {
+        Insert a[j] into the right position in a already sorted
+         sub array a[0..j-1] by pairwise swapping.
+    }
 }
 ```
 
@@ -160,14 +152,14 @@ Running time `O(n*n)`
 
 ```java
 Sort(a[n]) {
-	for (j <- 1 to n) {
-		Insert a[j] into the right position in a already sorted
-		 sub array a[0..j-1]. Use binary search to find the right position.
-	}
+    for (j <- 1 to n) {
+        Insert a[j] into the right position in a already sorted
+         sub array a[0..j-1]. Use binary search to find the right position.
+    }
 }
 ```
 
-Binary search with take `Θ(log n)` time. 
+Binary search with take `Θ(log n)` time.
 
 When the input is stored in an array. Shifting the elements after insertion will still take `Θ(n)` time. Thus even Binary insertion sort also takes `O(n*n).`To avoid having to make a series of swaps for each insertion, the input could be stored in a Linked List, which allows elements to be spliced into or out of the list in constant-time when the position in the list is known. However, searching a linked list requires sequentially following the links to the desired position: a linked list does not have random access, so it cannot use a faster method such as binary search. Therefore, the running time required for searching is `O(n)` and the time for sorting is `O(n*n)`.
 {% endtab %}
@@ -195,7 +187,7 @@ class Solution {
     public ListNode sortList(ListNode head) {
         return mergesort(head);
     }
-    
+
     private ListNode findMid(ListNode head) {
         ListNode iter = head;
         ListNode fastIter = head;
@@ -205,7 +197,7 @@ class Solution {
         }
         return iter;
     }
-    
+
     // start inclusive end exculsive
     private ListNode mergesort(ListNode head) {
         //single element
@@ -215,7 +207,7 @@ class Solution {
         ListNode R = mid.next;
         ListNode L = head;
         mid.next = null;
-        
+
         ListNode Lres = mergesort(L);
         ListNode Rres = mergesort(R);
         return merge(Lres,Rres);
@@ -235,7 +227,7 @@ class Solution {
             }
             iter=iter.next;
         }
-                
+
         while(L != null) {
             iter.next = L;
             L = L.next;
@@ -249,7 +241,6 @@ class Solution {
         }
         return res.next;
     }
-
 ```
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LD-xxGNrrOeNxoClrbP%2F-LDeTLZiN-ZY0P5jpWHO%2F-LDeTz4eUebP4CPBNEPJ%2FMerge_sort_algorithm_diagram.svg?alt=media&token=4142716d-6eba-4098-91b7-8431b12bea14)
@@ -268,18 +259,6 @@ Conceptually, a heap sort works as follows:
 After `n` iterations the Heap is empty, every iteration involves a swap and a max\_heapify operation; hence it takes `O(logn)` time  
 Thus overall `O(nlogn)` time.
 {% endtab %}
-
-{% tab title="Quick Sort" %}
-
-{% endtab %}
-
-{% tab title="Counting Sort" %}
-
-{% endtab %}
-
-{% tab title="Radix Sort" %}
-
-{% endtab %}
 {% endtabs %}
 
 ### Comparison between Sorting algorithms
@@ -288,7 +267,7 @@ Thus overall `O(nlogn)` time.
 | :--- | :--- | :--- | :--- |
 | **Memory footprint** - when input is provided as array | O\(n\) - when merging need to copy | In place sort - `O(1)` | In place sort -  `O(1)` |
 | **Stable Sort** ? - duplicate elements maintain their order after sorting | No | No | Yes |
-| Can be converted to run in a **distributed** fashion easily ? | Yes | No  | No |
+| Can be converted to run in a **distributed** fashion easily ? | Yes | No | No |
 | Pros/Cons | Merge sort is often the best choice for sorting a linked list: in this situation it is relatively easy to implement a merge sort in such a way that it requires only Θ\(1\) extra space, and the slow random-access performance of a linked list makes some other algorithms \(such as quicksort\) perform poorly, and others \(such as heapsort\) completely impossible. Merge sort also has good locaclity of reference. | Cant be used to sort Linked Lists, since Heap sort requires random access to its children. | Worst Case`O(n*n)` Depends on the pivot picked at each time |
 
 ### External Sort
@@ -296,6 +275,4 @@ Thus overall `O(nlogn)` time.
 ## Dynamic Programming
 
 ## Backtracking
-
-
 

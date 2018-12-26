@@ -8,7 +8,7 @@ A data structure containing a set `S` of elements, each associated with a key, s
 * `max(S)` - return element from S with largest Key
 * `increase_key(S,x,k)` - increase the value of element x's key to new value k
 
-#### Heap
+### Heap
 
 * Implementation of Priority Queue
 * An array, visualized as a complete binary tree. 
@@ -18,9 +18,9 @@ A data structure containing a set `S` of elements, each associated with a key, s
 * `right(i) = left(i) + 1`
 * `parent(i) = i - 1 / 2`
 
-#### Heap Operations
+### Heap Operations
 
-#### Insert
+### Insert
 
 To add an element to a heap we must perform an up-heap operation,
 
@@ -28,7 +28,7 @@ To add an element to a heap we must perform an up-heap operation,
 * Compare the added element with its parent; if they are in the correct order, stop. \(upheap operation\)
 * If not, swap the element with its parent and return to the previous step
 
-#### Extract Max / Min
+### Extract Max / Min
 
 To extract max / min element from an heap we must perform an down-heap operation.
 
@@ -36,11 +36,11 @@ To extract max / min element from an heap we must perform an down-heap operation
 * Compare the new root with its children; if they are in the correct order, stop
 * If not, swap the element with one of its children and return to the previous step.
 
-#### Build Min/Max Heap
+### Build Min/Max Heap
 
 Building a heap from an array of n input elements can be done by starting with an empty heap, then successively inserting each element. But takes `O(nlogn)` A better approach is to use down-heap operation on the input array to fix heap property violation from the bottom of the tree working its way towards the root. This approach takes `O(n)`
 
-#### Increase or decrease key
+### Increase or decrease key
 
 The operation of replacing/updating the key and iteratively doing down-heap/up-heap are not supported by many Priority Queue libraries such as C++ stl and Java. Doing an extract-min and insert function is less efficient.
 
@@ -49,11 +49,11 @@ public class Main {
     private static int left(int i) {
         return 2 * i + 1;
     }
-    
+
     private static int right(int i) {
         return left(i) + 1;
     }
-    
+
     private static void swap(int[] A, int i, int j) {
         int temp = A[i];
         A[i] = A[j];
@@ -87,7 +87,7 @@ public class Main {
             maxHeapifyDown(nums, i);
         }
     }
-    
+
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5};
         buildMaxHeap(nums);
@@ -101,7 +101,7 @@ public class Main {
 | :--- | :--- | :--- | :--- |
 | `O(1)` | `O(logn)` | `O(logn)` | `O(logn)` |
 
-#### Applications
+### Applications
 
 * Heapsort: One of the best sorting methods being in-place and with no quadratic worst-case scenarios.
 * Selection algorithms: A heap allows access to the min or max element in constant time, and other selections \(such as median or kth-element\) can be done in sub-linear time on data that is in a heap.

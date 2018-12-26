@@ -10,3 +10,7 @@
 * [Interview Question Dump](interview-question-dump.md)
 * [Java](java.md)
 
+## g2
+
+* [new group](g2/new-group.md)
+
