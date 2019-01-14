@@ -91,7 +91,7 @@ int binarySearch(int[] nums, int target) {
 
 ## Sorting
 
-#### Applications
+### Applications
 
 * Organize an Resource, i.e. Mp3 files
 * Data compression: sorting finds duplicate
@@ -276,3 +276,93 @@ Thus overall `O(nlogn)` time.
 
 ## Backtracking
 
+## DFS
+
+* follow path until you get stuck
+* backtrack along breadcrumbs until reach unexplored neighbor
+* recursively explore
+* careful not to repeat a vertex
+
+Implementation split into two parts,
+* Given a input Graph G.
+* dfsVisit(G, v) - search from start vertex v.
+* dfs(G) - explore entire graph.
+
+
+### Java Implementation
+```java
+class Solution {
+    private static int N = 26;
+    public String alienOrder(String[] words) {
+        boolean[][] adj = new boolean[N][N];
+        int[] status = new int[N];
+        // 0 - non found
+        // 1 - unvisited
+        // 2 visiting in current
+        // 3 visited
+        
+        buildGraph(words, adj, status);
+        
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < N; ++i) {
+            if(status[i] == 1) {
+                if(!dfsVisit(i, status, adj, sb)) return "";
+            }
+        }
+        return sb.reverse().toString();
+    }
+    
+    private boolean dfsVisit(int v, int[] status, boolean[][] adj, StringBuilder sb) {
+        status[v] = 2; // mark as visiting
+        for(int i = 0; i < N; ++i) {
+            if(adj[v][i]) {
+                if(status[i] == 1) {
+                    if(!dfsVisit(i, status, adj, sb)) return false;
+                } else if(status[i] == 2) {
+                    return false; // back edge, cycle;
+                }
+            }
+        }
+        status[v] = 3; // mark 
+        sb.append((char)('a' + v));
+        return true;
+    }
+}
+```
+
+Along with updating the status, one can also store parent pointers.
+
+Application,
+- Edge classification
+- cycle detection
+- Topological sort
+
+### Running time
+Linear time, O(V+E)
+dfsVisit is traversing every edge reachable. dfs calls dfsVisit for all vertices. Therefore the total running time for dfsVisit is O(E).
+Outer loop apart from dfsVisit adds O(V) time.
+
+
+### Edge classification
+- tree edge - Edges visited during DFS.
+- Back edge - Edge connecting back to a ancestor.
+- forward edge - Edge connecting to a descendant.
+- cross edge - Edge connecting one tree to another tree
+
+In undirected graphs, there will only be tree edge and back edge. Draw a undirected graphs to see the reason. 
+
+In the algo above, in dfsVisit(G, v) when traversing an edge,
+- If the destination vertex has status 2 i.e. being visiting currently, then it is an ancestor. Therefore its a back edge.
+- If the destination vertex has status 3 i.e. already visited, then its part of another subtree. Therefore its a cross edge.
+
+### Cycle Detection
+- If you encounter a back edge then there exists a cycle.
+
+### Topological sort
+- Reverse of the dfsVisit completion.
+- When dfsVisit completes for a vertex that means all the out going edges have been visited, there for in a dependency graph, it means, all the pre-requiste for this vertex has been completed.
+- Store the vertex in a list when dfsVisit for that vertex completes.
+- Reverse of that list gives topological sort.
+- In the algo above StringBuilder stores the vertex as a string.
+
+- Another algo for Topological sort without dfs, is to use indegree and our degree.
